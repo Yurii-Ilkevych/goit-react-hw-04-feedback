@@ -4,11 +4,11 @@ export const App = () => {
   return (
     <>
       <CounterFeedback
-        good={0}
-        neutral={0}
-        bad={0}
-        total={0}
-        positivePercentage={0}
+        goodProp={0}
+        neutralProp={0}
+        badProp={0}
+        totalProp={0}
+        positivePercentageProp={0}
       />
     </>
   );

@@ -1,64 +1,46 @@
-import Section from 'components/Section';
-import React, { Component } from 'react';
+import { useEffect, useState } from "react";
+import Section from 'components/Section'; 
 import Statistics from 'components/Statistics';
 import FeedbackOption from 'components/FeedbackOptions';
 import PropTypes from 'prop-types';
 
-class CounterFeedback extends Component {
-  static defaultProps = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-    total: 0,
-    positiveFeedback: 0,
-  };
 
-  static propTypes = {
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
-    positivePercentage: PropTypes.number.isRequired,
-  };
+const CounterFeedback = ({goodProp, neutralProp, badProp, totalProp, positivePercentageProp}) => {
+const [good, setGood] = useState(goodProp);
+const [neutral, setNeutral] = useState(neutralProp);
+const [bad, setBad] = useState(badProp);
+const [total, SetTotal] = useState(totalProp);
+const [positivePercentage, setPositivePercentage] = useState(positivePercentageProp);
 
-  state = {
-    good: this.props.good,
-    neutral: this.props.neutral,
-    bad: this.props.bad,
-    total: this.props.total,
-    positivePercentage: this.props.positivePercentage,
-  };
+useEffect(() => {
+   countTotalFeedback()
+   countPositiveFeedbackPercentage()
+    // SetTotal( good + neutral + bad)
 
-  houndleCount = optionState => {
-    console.log(optionState);
-    this.setState(praveState => {
-      return { [optionState]: praveState[optionState] + 1 };
-    });
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
-  };
+}, [good, neutral, bad])
 
-  countTotalFeedback = () => {
-    this.setState(({ total, good, neutral, bad }) => {
-      return {
-        total: (total = good + neutral + bad),
-      };
-    });
-  };
-  countPositiveFeedbackPercentage = () => {
-    this.setState(({ positivePercentage, good, neutral, bad }) => {
-      return {
-        positivePercentage: Number(
-          (positivePercentage = ((100 / (good + neutral + bad)) * good).toFixed(
-            2
-          ))
-        ),
-      };
-    });
-  };
+const houndleCount = (optionState) => {
+switch (optionState) {
+  case "good":
+    setGood(good + 1)
+    break;
+    case "neutral":
+      setNeutral(neutral + 1)
+    break;
+    case "bad":
+      setBad(bad + 1)
+    break;
+  default:
+    break;
+}}
 
-  render() {
-    const { good, neutral, bad, total, positivePercentage } = this.state;
+const countTotalFeedback = () => {
+  SetTotal( good + neutral + bad)
+}
+const countPositiveFeedbackPercentage = () => {
+  setPositivePercentage(Number(((100 / (good + neutral + bad)) * good).toFixed(2)))
+}
+
     return (
       <>
         <Section tittle="Please leave feedback">
@@ -72,20 +54,21 @@ class CounterFeedback extends Component {
         </Section>
         <Section tittle="Statistics">
           <FeedbackOption
-            onLeaveFeedback={this.houndleCount}
+            onLeaveFeedback={houndleCount}
             options={['good', 'neutral', 'bad']}
           ></FeedbackOption>
         </Section>
       </>
     );
-  }
+
 }
-export default CounterFeedback;
+
+ export default CounterFeedback;
 
 CounterFeedback.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
-  positivePercentage: PropTypes.number.isRequired,
+  goodProp: PropTypes.number.isRequired,
+  neutralProp: PropTypes.number.isRequired,
+  badProp: PropTypes.number.isRequired,
+  totalProp: PropTypes.number.isRequired,
+  positivePercentageProp: PropTypes.number.isRequired,
 };
