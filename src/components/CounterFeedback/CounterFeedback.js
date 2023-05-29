@@ -13,11 +13,8 @@ const [total, SetTotal] = useState(totalProp);
 const [positivePercentage, setPositivePercentage] = useState(positivePercentageProp);
 
 useEffect(() => {
-  //  countTotalFeedback()
-  //  countPositiveFeedbackPercentage()
     SetTotal( good + neutral + bad)
     setPositivePercentage(Number(((100 / (good + neutral + bad)) * good).toFixed(2)))
-
 }, [good, neutral, bad])
 
 const houndleCount = (optionState) => {
@@ -34,13 +31,6 @@ switch (optionState) {
   default:
     break;
 }}
-
-// const countTotalFeedback = () => {
-//   SetTotal( good + neutral + bad)
-// }
-// const countPositiveFeedbackPercentage = () => {
-//   setPositivePercentage(Number(((100 / (good + neutral + bad)) * good).toFixed(2)))
-// }
 
     return (
       <>
