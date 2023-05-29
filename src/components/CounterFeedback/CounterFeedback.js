@@ -13,9 +13,10 @@ const [total, SetTotal] = useState(totalProp);
 const [positivePercentage, setPositivePercentage] = useState(positivePercentageProp);
 
 useEffect(() => {
-   countTotalFeedback()
-   countPositiveFeedbackPercentage()
-    // SetTotal( good + neutral + bad)
+  //  countTotalFeedback()
+  //  countPositiveFeedbackPercentage()
+    SetTotal( good + neutral + bad)
+    setPositivePercentage(Number(((100 / (good + neutral + bad)) * good).toFixed(2)))
 
 }, [good, neutral, bad])
 
@@ -34,12 +35,12 @@ switch (optionState) {
     break;
 }}
 
-const countTotalFeedback = () => {
-  SetTotal( good + neutral + bad)
-}
-const countPositiveFeedbackPercentage = () => {
-  setPositivePercentage(Number(((100 / (good + neutral + bad)) * good).toFixed(2)))
-}
+// const countTotalFeedback = () => {
+//   SetTotal( good + neutral + bad)
+// }
+// const countPositiveFeedbackPercentage = () => {
+//   setPositivePercentage(Number(((100 / (good + neutral + bad)) * good).toFixed(2)))
+// }
 
     return (
       <>
